@@ -1,27 +1,23 @@
 class Owner
-  attr_accessor :pets, :species
-  attr_reader :name 
-
-  @@owners = []
-
-  def initialize(species, pets = {:dogs => [], :cats => []})
-    @species = species
-    @pets = pets
-    @@owners << self
+  attr_accessor :pets
+  attr_reader :name, :species
+  
+  
+  @@all = []
+  
+  def initialize(species)
+    @species = "human"
+    @@all << self
+    @pets = {:dogs => [], :cats => []}
   end
 
 
-
-  def say_species
-    "I am a #{@species}."
+  def buy_cat(cat)
+    @pets[:cats] << Cat.new(cat)
   end
 
-  def buy_cat(cat_name)
-    @pets[:cats] << Cat.new(cat_name)
-  end
-
-  def buy_dog(dog_name)
-    @pets[:dogs] << Dog.new(dog_name)
+  def buy_dog(dog)
+    @pets[:dogs] << Dog.new(dog)
   end
 
   def walk_dogs
@@ -36,28 +32,33 @@ class Owner
     end
   end
 
+
   def sell_pets
-    @pets.each do |type, name_array|
-      name_array.each do |pet|
-        pet.mood = "nervous"
-      end 
+    @pets.each do |type, animals|
+      animals.each do |animal|
+        animal.mood = "nervous"
+      end
+      animals.clear
     end
-    @pets = {}
   end
 
   def list_pets
-    "I have #{@pets[:dogs].length} dog(s), and #{@pets[:cats].length} cat(s)."
+    return "I have #{@pets[:dogs].size} dog(s), and #{@pets[:cats].size} cat(s)."
+  end
+
+  def say_species
+    return "I am a human."
   end
 
   def self.all
-    @@owners
+    @@all
   end
 
   def self.reset_all
-    @@owners.clear
+    @@all = []
   end
 
-  def self. count
-    @@owners.length
+  def self.count
+    @@all.count
   end
 end
