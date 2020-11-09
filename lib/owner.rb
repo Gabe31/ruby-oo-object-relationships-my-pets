@@ -39,11 +39,38 @@ end
   end
 end 
 
-def buy_cat(cat_name)
-  @pets[:cat] << Cat.new(cat_name)
+
+def buy_cat(name)
+  self.cats << Cat.new(name, self)   
 end 
 
-
+def buy_dog(name)
+  self.dogs << Dog.new(name, self)   
 end 
 
+def walk_dogs
+  self.dogs.each do |dog|
+    dog.mood = "happy"
+  end 
+end
 
+def feed_cats
+  self.cats.each do |cat|
+    cat.mood = "happy"
+  end 
+end
+
+def sell_pets
+  all_pets = cats + dogs
+  all_pets.each do |pet|
+  if pet.mood = "nervous"
+    pet.owner = nil 
+end 
+  end
+end
+
+def list_pets 
+  "I have #{self.dogs.size} dog(s), and #{self.cats.size} cat(s)."
+end
+
+end 
